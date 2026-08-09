@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data tra 90 giorni</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#2f96e0">
+<style>
+  :root{
+    --paper: #6fc3f0;
+    --paper-2: #2f96e0;
+    --line: rgba(255,255,255,0.16);
+    --ink: #1a1a1a;
+    --red: #c22b1f;
+    --graphite: #0d3c63;
+  }
+  *{ box-sizing: border-box; }
+  html,body{ min-height:100%; margin:0; }
+  body{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap: 30px;
+    background:
+      repeating-linear-gradient(45deg, var(--line) 0 1px, transparent 1px 7px),
+      repeating-linear-gradient(-45deg, var(--line) 0 1px, transparent 1px 7px),
+      radial-gradient(circle at 25% 15%, rgba(255,255,255,0.55), transparent 55%),
+      linear-gradient(160deg, var(--paper), var(--paper-2));
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--graphite);
+    padding: 28px 20px 40px;
+    position: relative;
+  }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px);
+    background-size: 3px 3px;
+    opacity:.7;
+    pointer-events:none;
+  }
+
+  .side-text{
+    position: fixed;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    transform-origin: right center;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    color: rgba(255,255,255,0.45);
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  h1{
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--graphite);
+    margin: 6px 0 0;
+    text-align:center;
+  }
+
+  .block{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap: 8px;
+  }
+
+  .tag{
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(13,60,99,0.75);
+    text-align:center;
+  }
+  .tag input[type="date"]{
+    display:block;
+    margin: 2px auto 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--graphite);
+    letter-spacing: 0.06em;
+    background: transparent;
+    border: none;
+    text-align: center;
+    -webkit-appearance: none;
+  }
+  .tag .fixed{
+    display:block;
+    margin-top: 2px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--graphite);
+  }
+
+  .stamp-wrap{
+    width: min(88vw, 420px);
+    position: relative;
+    filter: drop-shadow(0 8px 14px rgba(20,20,20,0.18));
+  }
+  .stamp-wrap.entrata{ transform: rotate(-4deg); }
+  .stamp-wrap.uscita{ transform: rotate(3deg); }
+
+  svg{ width:100%; height:auto; display:block; overflow: visible; }
+
+  .frame{ fill:none; stroke: var(--ink); }
+  .frame-outer{ stroke-width:2.4; }
+  .frame-inner{ stroke-width:1.1; }
+
+  .label-sm{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight:700;
+    font-size: 6px;
+    letter-spacing: 1.4px;
+    fill: var(--ink);
+    text-transform: uppercase;
+  }
+
+  .badge-line{ fill:none; stroke: var(--ink); stroke-width: 1.3; }
+  .badge-fill{ fill: var(--ink); }
+
+  .arrow{ fill: var(--ink); }
+  .plane{ fill: var(--ink); }
+
+  .date-red{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight:700;
+    fill: var(--red);
+    letter-spacing: 1px;
+  }
+
+  footer{
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.5);
+    text-align:center;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="side-text">Visti · Visas</div>
+
+  <h1>Data tra 90 giorni</h1>
+
+  <!-- INGRESSO -->
+  <div class="block">
+    <div class="tag">
+      Data di ingresso (tocca per cambiare)
+      <input type="date" id="ingressoInput">
+    </div>
+
+    <div class="stamp-wrap entrata">
+      <svg viewBox="0 0 380 190">
+        <defs>
+          <filter id="rough1">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2"/>
+          </filter>
+        </defs>
+        <g filter="url(#rough1)">
+          <rect class="frame frame-outer" x="14" y="14" width="352" height="162"/>
+          <rect class="frame frame-inner" x="20" y="20" width="340" height="150"/>
+
+          <g transform="translate(78,58)">
+            <path class="badge-line" d="M-16,-16 L16,-16 L16,4 C16,18 0,26 0,26 C0,26 -16,18 -16,4 Z"/>
+            <path class="badge-fill" d="M0,-9 L2.6,-2.5 L9.5,-2.5 L3.9,1.6 L6,8.5 L0,4.2 L-6,8.5 L-3.9,1.6 L-9.5,-2.5 L-2.6,-2.5 Z"/>
+            <path class="badge-line" d="M-16,-2 C-26,-2 -30,4 -30,9" />
+            <path class="badge-line" d="M16,-2 C26,-2 30,4 30,9" />
+          </g>
+          <text class="label-sm" x="78" y="100" text-anchor="middle">
+            <tspan x="78" dy="0">POLIZIA DI</tspan>
+            <tspan x="78" dy="9">FRONTIERA</tspan>
+          </text>
+
+          <rect class="frame frame-inner" x="284" y="28" width="66" height="32"/>
+          <g class="plane" transform="translate(317,44) scale(0.9)">
+            <path d="M-16,0 L-2,-2 L14,-9 L16,-6 L4,2 L14,4 L18,8 L10,7 L-2,9 L-6,14 L-9,13 L-8,7 L-16,4 Z"/>
+          </g>
+
+          <!-- freccia verso l'interno: ingresso -->
+          <g class="arrow" transform="translate(50,150)">
+            <path d="M-14,-6 L6,-6 L6,-14 L20,0 L6,14 L6,6 L-14,6 Z"/>
+          </g>
+
+          <text class="date-red" id="ingressoSvg" x="235" y="98" text-anchor="middle" font-size="34">--/--/----</text>
+          <text class="label-sm" x="200" y="150" text-anchor="middle">SCHENGEN AREA · INGRESSO</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- USCITA -->
+  <div class="block">
+    <div class="tag">
+      Data di uscita (automatica, +90 giorni)
+      <span class="fixed" id="uscitaLabel"></span>
+    </div>
+
+    <div class="stamp-wrap uscita">
+      <svg viewBox="0 0 380 190">
+        <defs>
+          <filter id="rough2">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2"/>
+          </filter>
+        </defs>
+        <g filter="url(#rough2)">
+          <rect class="frame frame-outer" x="14" y="14" width="352" height="162"/>
+          <rect class="frame frame-inner" x="20" y="20" width="340" height="150"/>
+
+          <g transform="translate(78,58)">
+            <path class="badge-line" d="M-16,-16 L16,-16 L16,4 C16,18 0,26 0,26 C0,26 -16,18 -16,4 Z"/>
+            <path class="badge-fill" d="M0,-9 L2.6,-2.5 L9.5,-2.5 L3.9,1.6 L6,8.5 L0,4.2 L-6,8.5 L-3.9,1.6 L-9.5,-2.5 L-2.6,-2.5 Z"/>
+            <path class="badge-line" d="M-16,-2 C-26,-2 -30,4 -30,9" />
+            <path class="badge-line" d="M16,-2 C26,-2 30,4 30,9" />
+          </g>
+          <text class="label-sm" x="78" y="100" text-anchor="middle">
+            <tspan x="78" dy="0">POLIZIA DI</tspan>
+            <tspan x="78" dy="9">FRONTIERA</tspan>
+          </text>
+
+          <rect class="frame frame-inner" x="284" y="28" width="66" height="32"/>
+          <g class="plane" transform="translate(317,44) scale(0.9)">
+            <path d="M-16,0 L-2,-2 L14,-9 L16,-6 L4,2 L14,4 L18,8 L10,7 L-2,9 L-6,14 L-9,13 L-8,7 L-16,4 Z"/>
+          </g>
+
+          <!-- freccia verso l'esterno: uscita -->
+          <g class="arrow" transform="translate(50,150) scale(-1,1)">
+            <path d="M-14,-6 L6,-6 L6,-14 L20,0 L6,14 L6,6 L-14,6 Z"/>
+          </g>
+
+          <text class="date-red" id="uscitaSvg" x="235" y="98" text-anchor="middle" font-size="34">--/--/----</text>
+          <text class="label-sm" x="200" y="150" text-anchor="middle">SCHENGEN AREA · USCITA</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <footer>Anteprima — non è un documento ufficiale</footer>
+
+<script>
+  const input = document.getElementById('ingressoInput');
+  const ingressoSvg = document.getElementById('ingressoSvg');
+  const uscitaSvg = document.getElementById('uscitaSvg');
+  const uscitaLabel = document.getElementById('uscitaLabel');
+
+  function formatta(d){
+    return d.toLocaleDateString('it-IT', { day:'2-digit', month:'2-digit', year:'numeric' });
+  }
+
+  function calcola(){
+    const valore = input.value;
+    const base = valore ? new Date(valore + 'T00:00:00') : new Date();
+    const uscita = new Date(base);
+    uscita.setDate(uscita.getDate() + 90);
+
+    ingressoSvg.textContent = formatta(base);
+    uscitaSvg.textContent = formatta(uscita);
+    uscitaLabel.textContent = formatta(uscita);
+  }
+
+  const oggi = new Date();
+  input.value = oggi.toISOString().split('T')[0];
+  calcola();
+  input.addEventListener('input', calcola);
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js').catch(() => {});
+  }
+</script>
+</body>
+</html>
