@@ -1,0 +1,21 @@
+{
+  "name": "Data tra 90 giorni",
+  "short_name": "90 Giorni",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#2f96e0",
+  "theme_color": "#2f96e0",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
