@@ -1,21 +1,32 @@
 {
   "name": "Data tra 90 giorni",
   "short_name": "90 Giorni",
-  "start_url": "./index.html",
-  "scope": "./",
+  "description": "Calcola facilmente la data di uscita dallo spazio Schengen dopo 90 giorni dall'ingresso.",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#2f96e0",
   "theme_color": "#2f96e0",
+  "lang": "it",
   "icons": [
     {
       "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
